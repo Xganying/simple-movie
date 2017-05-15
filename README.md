@@ -1,2 +1,2 @@
 # Movie
-node+express搭建的电影网站
+node+express+jade+Mongoose 搭建的电影网站

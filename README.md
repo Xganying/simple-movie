@@ -10,7 +10,7 @@ node + express + mongodb 快速搭建的简单电影网站
 
 （3）开发环境 ：Grunt
 
-![技术](http://img.blog.csdn.net/20170710120407363?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2FueWluZ3hpZTEyMzQ1Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![技术](http://img.blog.csdn.net/20170710121354410?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2FueWluZ3hpZTEyMzQ1Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ### 2、 开发步骤
 

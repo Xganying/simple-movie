@@ -1,11 +1,9 @@
-/**
- * Created by Administrator on 2017/5/13.
- */
 
-//添加模式
+// schemas movie.js  添加模式
 
-var mongoose = require('mongoose')
-var MovieSchema= new mongoose.Schema({
+var mongoose = require('mongoose');
+
+var MovieSchema = new mongoose.Schema({
     doctor:String,
     title:String,
     language:String,
@@ -34,12 +32,12 @@ MovieSchema.pre('save', function (next) {
     }else{
         this.meta.updateAt = Date.now()
     }
-    next()
-})
+    next();
+});
 
 //添加静态方法
 MovieSchema.statics = {
-    //取出数据库中所有的数据
+    //取出目前数据库中所有的数据
     fetch:function (cb) {
         return this
             .find({})
@@ -49,7 +47,7 @@ MovieSchema.statics = {
     //查询单条数据
     findById:function (id, cb) {
         return this
-            .findOne({_id:id})
+            .findOne({_id:id})  
             .exec(cb)  //执行回调方法
     }
 }

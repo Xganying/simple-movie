@@ -9,7 +9,7 @@ $(function () {
         //调用ajax
         $.ajax({
             type:'DELETE',
-            url:'/admin/list?id' + id  //提交的地址
+            url:'/admin/movie/list?id' + id  //提交的地址
         })
         .done(function (results) {     //服务器返回的状态
             if(results.success === 1){ //删除成功

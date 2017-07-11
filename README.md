@@ -50,4 +50,14 @@ clone到本地 -> 安装依赖：npm install -> 确保mongodb数据库服务开�
 
 ![后台录入页](http://img.blog.csdn.net/20170710114916927?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2FueWluZ3hpZTEyMzQ1Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
-后期不断完善中。。。
+**后期不断完善中。。。**
+
+### 功能完善一：
+
+  （1）使用Grunt集成自动重启
+  
+  （2）添加登录/注册/登出功能
+  
+  （3）完成用户权限设置
+  
+  （4）添加评论功能

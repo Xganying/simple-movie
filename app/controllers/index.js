@@ -4,7 +4,7 @@ var Movie = require('../models/movie');
  
 //index page 设置主页的路由
 exports.index = function(req, res){
-    console.log('user in session : ');
+    console.log('user in session : '); //登录登出信息显示
     console.log(req.session.user);
 
     //从数据库获取数据

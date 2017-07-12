@@ -30,17 +30,10 @@ block content
                                                     img.media-object(src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+", style="width: 64px; height: 64px;")
                                             .media-body
                                                 h4.media-heading 
-                                                | #{reply.from.name}
+                                                    | #{reply.from.name}
                                                     span.text-info &nbsp;回复&nbsp;
-                                                | #{reply.from.name} :
+                                                    | #{reply.from.name} :
                                                 p #{reply.content}
-                                hr
-                           //- li.media
-                                .pull-left
-                                    img.media-object(src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+", style="width: 64px; height: 64px;")
-                                .media-body
-                                    h4.media-heading Cynthia
-                                    p Really nice!
                                 hr
                     #comments
                         form#commentFrom(method = "POST", action="/user/comment")
@@ -52,7 +45,7 @@ block content
                             if user
                                 button.btn.btn-primary(type="submit") 提交
                             else
-                                a.navbar-link(href="#", data-toggle="modal", data-target="#signModel") 登录后评论         
+                                a.navbar-link(href="#", data-toggle="modal", data-target="#signModal") 登录后评论         
                 .col-md-5
                     dl.dl-horizontal
                         dt  电影名字

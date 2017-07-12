@@ -1,5 +1,5 @@
 
-// schemas movie.js  添加模式
+// schemas ->  movie.js  添加模式
 
 var mongoose = require('mongoose');
 

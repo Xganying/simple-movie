@@ -1,4 +1,4 @@
-// user.js 用来控制和用户相关的请求
+// controllers - > user.js 用来控制和用户相关的请求
 
 var User = require('../models/user');
 
@@ -7,22 +7,18 @@ exports.ShowSignup = function(req, res){
     res.render('signup',{
         title:'注册页面'
     });
-}
+};
 
 //signin page
 exports.ShowSignin = function(req, res){
     res.render('signin',{
         title:'登录页面'
     });
-}
+};
 
-
- //signup page 设置注册路由
- exports.signup = function(req,res){
-    var _userid = req.params.userid; 
-    // /user/sigup/1111?userid=1112
-    //var _userid = req.query.user;
-    //var _userid = req.body.userid;
+//signup page 设置注册路由
+exports.signup = function(req, res){
+    var _user = req.params.user; 
 
     //避免用户名重复注册
     User.findOne({name:_user.name}, function(err, user){
@@ -33,7 +29,7 @@ exports.ShowSignin = function(req, res){
             return res.redirect('/signin'); //如果用户名重复，跳转到登录页面
         }else{
             var user = new User(_user);
-            user.save(function(err,user){
+            user.save(function(err, user){
                 if(err){
                     console.log(err);
                 }
@@ -45,7 +41,7 @@ exports.ShowSignin = function(req, res){
 };
 
 // signin page 设置登录路由
-exports.signin = function(req,res){
+exports.signin = function(req, res){
     var _user =req.body.user;
     var name = _user.name;
     var password = _user.password;
@@ -56,11 +52,10 @@ exports.signin = function(req,res){
             console.log(err);
         }
         if(!user){
-            return res.redirect('/signup');
+            return res.redirect('/signup'); //用户名不对，跳转到注册页面
         }
-
         //对比密码是否匹配
-        user.comparePassword(password, function(err,isMatch){
+        user.comparePassword(password, function(err, isMatch){
             if(err){
                 console.log(err);
             }
@@ -77,11 +72,10 @@ exports.signin = function(req,res){
             }
         })
     })
-
 };
 
 // logout page 设置登出路由
-exports.logout = function(req,res){
+exports.logout = function(req, res){
     delete req.session.user;
     //delete app.locals.user;
     
@@ -97,7 +91,7 @@ exports.list = function(req, res){
         }
         res.render('userlist', {
             title: 'Movie 用户列表页',
-            movies: users
+            users: users
         })
     });
 };

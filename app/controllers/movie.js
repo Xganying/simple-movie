@@ -2,17 +2,17 @@
 
 var _ = require('underscore');
 var Movie = require('../models/movie');
-var Comment = require('../models/comment');
+var oComment = require('../models/comment');
 
 //detail page 设置详情页的路由
 exports.detail = function(req, res){  
     //从数据库获取数据
     var id = req.params.id;
     Movie.findById(id, function (err, movie) {
-        Comment
+        oComment
             .find({movie:id})
-            .populate('replt.from reply.to','name')
-            .exec(function(err,comments){
+            .populate('reply.from  reply.to','name')
+            .exec(function(err, comments){
                 res.render('detail',{
                     title:'Movie 详情页',
                     movie:movie,
@@ -39,12 +39,12 @@ exports.new = function(req, res){
     });
 };
 
-    //admin update movie   将更新的数据初始化到列表中
+//admin update movie   将更新的数据初始化到列表中
 exports.update = function (req, res) {
     var id= req.params.id; //先获取id
     if(id){  //判断id是否已经存在
         Movie.findById(id, function (err, movie) {
-            res.render('admin', {
+            res.render('update', {
                 title:'Movie 后台更新页',
                 movie:movie
             });
@@ -129,7 +129,8 @@ exports.del = function (req, res) {
     if(id){
         Movie.remove({_id:id}, function (err, movie) {
             if(err){
-                console.error(err);
+                console.log(err);
+                res.json({success:0});
             }else{
                 res.json({success:1});
             }

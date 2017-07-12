@@ -1,17 +1,16 @@
 // schemas  -> comment.js 评论
 
 var mongoose = require('mongoose');
-var  Schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
-
 
 var CommentSchema = new mongoose.Schema({
    movie:{
-        typr:Object,
+        type:Object,
         ref:"Movie"
    },
    from:{
-        typr:Object,
+        type:Object,
         ref:"User"
    },
    reply:[{
@@ -19,7 +18,7 @@ var CommentSchema = new mongoose.Schema({
        to:{type:ObjectId, ref:'User'},
        content:String
    }],
-   content:String, //具体内容
+   content:String, //评论的具体内容
     meta:{
         createAt:{
             type:Date,

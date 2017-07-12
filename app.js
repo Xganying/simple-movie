@@ -13,7 +13,7 @@ var app = express(); //将实例赋给一个变量
 var dbUrl = 'mongodb://localhost/movie';
 
 //开启数据库,连接数据库，并监听端口
-mongoose.connect(dbUrl,function (err) {
+mongoose.connect(dbUrl,{useMongoClient:true},function (err) {
     if(err){
         console.log("数据库连接失败！");
     }else{
@@ -24,7 +24,7 @@ mongoose.connect(dbUrl,function (err) {
 });
 
 app.set('views', "./app/views/pages"); // 设置视图的根目录
-app.set('view engine','jade');     //设置默认的模板引擎
+app.set('view engine','jade');         //设置默认的模板引擎
 
 //app.use(bodyParser.json());      //格式化表单数据
 app.use(bodyParser.urlencoded({extended:true}));
@@ -32,18 +32,18 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(express.cookieParser());
 app.use(express.session({
-    secret:'movie',
+    secret:'movie',  //会话持久化
     store: new mongoStore({
         url:dbUrl,
         collection:'sessions'
     })
 }));
 
-//配置入口文件(在网页查看源代码时，不时乱码)
+//配置入口文件 (在网页查看源代码时，不时乱码)
 if('development' === app.get('env')){
-    app.set('ShowStaticError', true);
+    app.set('ShowStackError', true); 
     app.use(express.logger(':method :url :status'));
-    app.locals.pretty = true;
+    app.locals.pretty = true; //代码格式化
     mongoose.set('debug', true);
 }
 

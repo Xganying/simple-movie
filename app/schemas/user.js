@@ -1,19 +1,19 @@
 
-// schemas user.js  添加用户模式
+// schemas -> user.js  添加用户模式
 
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt'); //引入库：专门为密码存储设计的方法
 var SALT_WORK_FACTOR = 10;
 
 var UserSchema = new mongoose.Schema({
-    name:{            //用户名
+    name:{             //用户名
         unique:true,
         type:String
     },
-    password:String,  //密码
+    password:String,   //密码
     //role: String, //user, admin, super andmin
     //0: nomal user , 1: verified user , 2: professional user, >10:admin, >50:super admin
-    role:{ //用户权限
+    role:{           //用户权限
         type:Number,
         default:0
     },
@@ -43,7 +43,7 @@ UserSchema.pre('save', function (next) {
         if(err){
             return next(err);
         }
-        bcrypt.hash(user.password, salt, function(err,hash){
+        bcrypt.hash(user.password, salt, function(err, hash){
             if(err){
                 return next(err);
             }
@@ -55,10 +55,12 @@ UserSchema.pre('save', function (next) {
 });
 
 //添加实例方法 (密码校验)
-UserSchemas.methods = {
-    comparePassword:function(_pasword,cb){
+UserSchema.methods = {
+    comparePassword: function(_password, cb){
         bcrypt.compare(_password, this.password, function(err, isMatch){
-            if(err) return cb(err);
+            if(err){
+                return cb(err);
+            } 
             cb(null, isMatch);
         })
     }

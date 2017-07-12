@@ -10,7 +10,7 @@ $(function () {
         if($('#toId').length > 0){
             $('#toId').val(toId)
         }else{
-             $('<inpout>').attr({
+             $('<input>').attr({
                 type:'hidden',
                 id:'toId',
                 name:'comment[tid]',
@@ -21,7 +21,7 @@ $(function () {
         if($('#commentId').length > 0){
             $('#commentId').val(commentId)
         }else{
-            $('<inpout>').attr({
+            $('<input>').attr({
                 type:'hidden',
                 id:'commentId',
                 name:'comment[cid]',

@@ -1,4 +1,5 @@
 //- index.jade
+
 //- 继承layout的布局
 extends ../layout
 
@@ -6,11 +7,18 @@ extends ../layout
 block content
     .container
         .row
-            each item in movies
-                .col-md-2
-                    .thumbnail
-                        a(href="/movie/#{item._id}")
-                            img(src="#{item.poster}", alt="#{item.title}")
-                        .caption
-                            h3  #{item.title}
-                            p: a.btn.btn-primary(href="/movie/#{item._id}", role="button")  观看预告片
+            each cat in catetory
+                .panel.panel-default
+                    .panel-heading
+                        h3
+                        a(href="/results?cat=#{cat._id}&p=0") #{cat.name}
+                    .panel-body
+                        if cat.movies && cat.movies.length > 0
+                            each item in movies
+                                .col-md-2
+                                    .thumbnail
+                                        a(href="/movie/#{item._id}")
+                                            img(src="#{item.poster}", alt="#{item.title}")
+                                        .caption
+                                            h3  #{item.title}
+                                            p: a.btn.btn-primary(href="/movie/#{item._id}", role="button")  观看预告片

@@ -4,6 +4,7 @@ var INdex = ('../app/controllers/index');
 var User = ('../app/controllers/user');
 var Movie = ('../app/controllers/movie');
 var comment = ('../app/controllers/comment');
+var Category = ('../app/controllers/category');
 
 module.exports = function(app){
 
@@ -36,7 +37,13 @@ module.exports = function(app){
    app.delete('/admin/list',  User.signinRequired, User.adminRequired, Movie.del);           
 
    //Comment
-   app.get('/user/comment',  User.signinRequired, comment.save);        
-   
-}
+   app.get('/user/comment',  User.signinRequired, comment.save);
+
+   //Catetory
+   app.get('/admin/category/new', User.signinRequired, User.adminRequired, Category.new);
+   app.get('/admin/category', User.signinRequired, User.adminRequired, Category.save);
+   app.get('/admin/category/list', User.signinRequired, User.adminRequired, Category.list);
+    app.get('/results', INdex.search);
+
+};
 

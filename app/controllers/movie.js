@@ -3,6 +3,7 @@
 var _ = require('underscore');
 var Movie = require('../models/movie');
 var oComment = require('../models/comment');
+var Category = require('../models/category');
 
 //detail page 设置详情页的路由
 exports.detail = function(req, res){  
@@ -24,18 +25,22 @@ exports.detail = function(req, res){
 
 //admin new page 设置后台页的路由
 exports.new = function(req, res){
-    res.render('admin', {
-        title:'Movie 后台录入页',
-        movie:{
-            title:'',
-            doctor:'',
-            country:'',
-            year:'',
-            poster:'',
-            flash:'',
-            summary:'',
-            language:''
-        }
+    Category.find({}, function (err, categories) {
+        res.render('admin', {
+            title:'Movie 后台录入页',
+            categories:categories,
+            movie:{}
+            /* movie:{
+             title:'',
+             doctor:'',
+             country:'',
+             year:'',
+             poster:'',
+             flash:'',
+             summary:'',
+             language:''
+             }*/
+        });
     });
 };
 
@@ -44,9 +49,12 @@ exports.update = function (req, res) {
     var id= req.params.id; //先获取id
     if(id){  //判断id是否已经存在
         Movie.findById(id, function (err, movie) {
-            res.render('update', {
-                title:'Movie 后台更新页',
-                movie:movie
+            Category.find({}, function (err, movie) {
+                res.render('update', {
+                    title:'Movie 后台更新页',
+                    movie:movie,
+                    categories:categories
+                });
             });
         });
     }
@@ -58,7 +66,7 @@ exports.save = function (req, res) {
     var movieObj = req.body.movie;
     var _movie;
     //数据已经存在，只需要更新
-    if(id !== 'undefined'){
+    if(id/* !== 'undefined'*/){
         movie.findById(id, function (err, movie) {
             if(err){
                 console.log(err);
@@ -74,7 +82,7 @@ exports.save = function (req, res) {
             });
         });
     }else{  //电影是新加的（直接调用模型的构造函数）
-        _movie = new Movie({
+       /* _movie = new Movie({
             doctor: movieObj.doctor,
             title: movieObj.title,
             country: movieObj.country,
@@ -83,13 +91,42 @@ exports.save = function (req, res) {
             poster: movieObj.poster,
             summary: movieObj.summary,
             flash: movieObj.flash
-        });
+        });*/
+        _movie = new Movie({movieObj});
+        var categoryId = movieObj.category;
+        var categoryName = movieObj.categoryName;
+        
         _movie.save(function (err, movie) {
             if(err){
                 console.error(err);
             }
-            //如果电影的数据保存成功了，就将页面重定向到详情页
-            res.redirect('/movie/' + movie._id);
+            if(categoryId){
+                Category.findById(categoryId, function (err, category ) {
+                    if(err){
+                        console.log(err);
+                    }
+                    category.movies.push(movie._id);
+                    category.save(function (err, category) {
+                        if(err){
+                            console.log(err);
+                        }
+                        //如果电影的数据保存成功了，就将页面重定向到详情页
+                        res.redirect('/movie/' + movie._id);
+                    });
+                });
+            }else if(categoryName){
+                var category = new Category({
+                    name:categoryName,
+                    movies:[movie._id]
+                });
+                category.save(function (err, category) {
+                    movie.category = category._id;
+                    movie.save(function (err, movie) {
+                        res.redirect('/movie/' + movie._id);
+                    })
+                });
+            }
+
         });
     }
 };

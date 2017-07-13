@@ -1,0 +1,18 @@
+//- catetory_admin.jade
+
+//- 继承layout的布局
+extends ../layout
+
+//- 声明主要的内容
+block content
+    .container
+        .row
+            form.form-horizontal(method="post", action="/admin/category")
+
+                .form-group
+                    label.col-sm-2.control-label(for="inputCategory") 电影分类
+                    .col-sm-10
+                        input#inputCategory.form-control(type="text", name="category[name]", value=category.name)
+                .form-group
+                    .col-sm-offset-2.col-sm-10
+                        button.btn.btn-default(type="submit") 录入

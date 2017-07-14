@@ -9,7 +9,7 @@ var mongoStore = require('connect-mongo')(express);
 
 var port = process.env.PORT || 3001; //设置端口
 var app = express(); //将实例赋给一个变量
-
+var fs = require('fs');
 var dbUrl = 'mongodb://localhost/movie';
 
 //开启数据库,连接数据库，并监听端口
@@ -23,6 +23,26 @@ mongoose.connect(dbUrl,{useMongoClient:true},function (err) {
     }
 });
 
+// models loading
+var models_path = __dirname + '/app/models';
+var walk = function (path) {
+    fs
+        .readdirSync(path)
+        .forEach(function (file) {
+            var newPath = path + '/' + file;
+            var stat = fs.statSync(newPath);
+
+            if(stat.isFile()){
+                if(/(.*)\.(js|coffee)/.test(file)){
+                    require(newPath);
+                }
+            }else if(stat.isDirectory){
+                walk(newPath);
+            }
+        });
+};
+walk(models_path);
+
 app.set('views', "./app/views/pages"); // 设置视图的根目录
 app.set('view engine','jade');         //设置默认的模板引擎
 
@@ -31,6 +51,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 //app.use(express.bodyParser());
 
 app.use(express.cookieParser());
+app.use(express.multiple);
 app.use(express.session({
     secret:'movie',  //会话持久化
     store: new mongoStore({

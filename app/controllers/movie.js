@@ -4,11 +4,19 @@ var _ = require('underscore');
 var Movie = require('../models/movie');
 var oComment = require('../models/comment');
 var Category = require('../models/category');
+var fs = require('fs');
+var path = require('path');
 
 //detail page 设置详情页的路由
-exports.detail = function(req, res){  
-    //从数据库获取数据
+exports.detail = function(req, res){
     var id = req.params.id;
+
+    Movie.update({id:_id}, {$inc:{pv:1}}, function (err) {
+        if(err){
+            console.log(err);
+        }
+    });
+
     Movie.findById(id, function (err, movie) {
         oComment
             .find({movie:id})
@@ -60,11 +68,39 @@ exports.update = function (req, res) {
     }
 };
 
+// admin poster
+exports.savePoster = function (req, res, next) {
+    var posterData = req.files.uploadPoster;
+    var filePath = posterData.path;
+    var originalFilename = posterData.originalFilename;
+
+    if(originalFilename){
+        fs.readFile(filePath, function (err, data) {
+            var timestamp = Data.now();
+            var type = posterData.type.split('/')[1];
+            var poster = timestamp + '.' +type;
+            var newPath = path.join(__dirname, '../../', '/public/upload/' + poster);
+
+            fs.writeFile(newPath, data, function (err) {
+                req.poster = poster;
+                next();
+            });
+        });
+    }else{
+        next();
+    }
+};
+
 //admin post movie   拿到从后台录入页拿到的数据
 exports.save = function (req, res) {
     var id = req.body.movie._id;
     var movieObj = req.body.movie;
     var _movie;
+
+    if(req.poster){
+        movieObj.poster = req.poster;
+    }
+
     //数据已经存在，只需要更新
     if(id/* !== 'undefined'*/){
         movie.findById(id, function (err, movie) {

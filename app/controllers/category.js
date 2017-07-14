@@ -13,7 +13,7 @@ exports.new = function(req, res){
 //admin post movie   拿到从后台录入页拿到的数据
 exports.save = function (req, res) {
     var _category = req.body.category;
-    var category = new Catetory(_category);
+    var category = new Category(_category);
 
     Category.save(function (err, category) {
         if(err){

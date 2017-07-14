@@ -29,7 +29,7 @@ var CommentSchema = new mongoose.Schema({
             default:Date.now()
         }
     }
-})
+});
 
 //给模型添加一个方法
 CommentSchema.pre('save', function (next) {
@@ -49,15 +49,15 @@ CommentSchema.statics = {
         return this
             .find({})
             .sort('meta.updateAt')  //按更新时间排序
-            .exec(cb)  //执行回调方法
+            .exec(cb); //执行回调方法
     },
     //查询单条数据
     findById:function (id, cb) {
         return this
             .findOne({_id:id})  
-            .exec(cb)  //执行回调方法
+            .exec(cb);  //执行回调方法
     }
-}
+};
 
 //将模式导出
-module.exports = CommentSchema
+module.exports = CommentSchema;

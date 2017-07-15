@@ -16,10 +16,11 @@ var mongoose = require('mongoose');
 // var User = require('../../app/models/user');
 var User = mongoose.model('User');
 
+var user;
+
 //test
 describe('<Unit Test', function () {
    describe("Model User : " , function () {
-
        before(function (done) {
            user = { // 全局变量
                name: getRandomString(),
@@ -66,6 +67,7 @@ describe('<Unit Test', function () {
                    });
                });
            });
+
             //权限单元测试
            it('Should have default role 0 ', function (done) {
                var _user = new User(user);
@@ -81,7 +83,6 @@ describe('<Unit Test', function () {
                var _user1 = new User(user);
                _user1.save(function (err) {
                    should.exists(err);
-
                    var _user2 = new User(user);
                    _user2.save(function (err) {
                        should.exists(err);
@@ -92,14 +93,18 @@ describe('<Unit Test', function () {
                                    done();
                                });
                            }
-                           done();
                        });
                    });
-
                });
+           }); 
 
-           });
-       });
-   });
+        });
+
+        after(function(done){
+            // clear user info
+            done();
+        });
+        
+    });
 });
 

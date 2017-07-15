@@ -1,22 +1,22 @@
 // index.js 负责和首页进行交互
 
 var Movie = require('../models/movie');
-var Catetory = require('../models/category');
+var Category = require('../models/category');
 
  
 //index page 设置主页的路由
 exports.index = function(req, res){
 
-    Catetory
+    Category
         .find({})
         .populate({path: 'movies', options:{limit:6}})
-        .exec(function (err, catetory) {
+        .exec(function (err, category) {
             if(err){
                 console.log(err);
             }
             res.render('index',{
                 title:'Movie 首页',
-                catetories: catetories
+                categories: categories
             });
         });
 
@@ -75,7 +75,7 @@ exports.search = function(req, res) {
     var oIndex = page * count;
 
     if(catId){
-        Catetory
+        Category
             .find({_id:catId})
             .populate({
                 path: 'movies',

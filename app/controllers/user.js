@@ -28,7 +28,7 @@ exports.signup = function(req, res){
         if(user){ //注册的用户名已经存在了
             return res.redirect('/signin'); //如果用户名重复，跳转到登录页面
         }else{
-            var user = new User(_user);
+            user = new User(_user);
             user.save(function(err, user){
                 if(err){
                     console.log(err);
@@ -37,7 +37,6 @@ exports.signup = function(req, res){
             });
         }
     });
-
 };
 
 // signin page 设置登录路由

@@ -2,6 +2,6 @@
 
 var mongoose = require('mongoose');
 var CommentSchema = require('../schemas/comment');
-var comment = reuire('comment', CommentSchema);
+var Comment = reuire('Comment', CommentSchema);
 
-module.exports = comment;
+module.exports = Comment;

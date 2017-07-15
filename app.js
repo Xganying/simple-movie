@@ -5,7 +5,13 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var mongoStore = require('connect-mongo')(express);
+
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+
+var logger = require('morgan');
+var serveStatic = require('serve-static');
 
 var port = process.env.PORT || 3001; //设置端口
 var app = express(); //将实例赋给一个变量
@@ -46,30 +52,36 @@ walk(models_path);
 app.set('views', "./app/views/pages"); // 设置视图的根目录
 app.set('view engine','jade');         //设置默认的模板引擎
 
-//app.use(bodyParser.json());      //格式化表单数据
-app.use(bodyParser.urlencoded({extended:true}));
-//app.use(express.bodyParser());
+//app.use(express.bodyParser()); // express 3.X
+// app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());      //格式化表单数据
 
-app.use(express.cookieParser());
-app.use(express.multiple);
-app.use(express.session({
+app.use(cookieParser());
+
+app.use(express.multipart());
+app.use(session({
     secret:'movie',  //会话持久化
-    store: new mongoStore({
+    resave:flse,
+    saveUninitialized,
+    store: new MongoStore({
         url:dbUrl,
         collection:'sessions'
     })
 }));
 
 //配置入口文件 (在网页查看源代码时，不时乱码)
-if('development' === app.get('env')){
+var env = process.env.NODE_ENV || 'dev'
+if('development' === env){
     app.set('ShowStackError', true); 
-    app.use(express.logger(':method :url :status'));
+    app.use(logger(':method :url :status'));
     app.locals.pretty = true; //代码格式化
-    mongoose.set('debug', true);
+    //mongoose.set('debug', true);
 }
 
 require('./config/routes')(app);
 
-app.use(express.static(path.join(__dirname, 'public')));  //获取静态资源
+app.use(express.serveStatic(path.join(__dirname, 'public')));  //获取静态资源
+
 app.locals.moment = require('moment');
 

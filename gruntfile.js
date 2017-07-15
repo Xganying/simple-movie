@@ -19,6 +19,36 @@ module.exports = function(grunt) {
             }
         },
 
+        jshint:{
+            options:{
+                jshintrc:'.jshintrc',
+                ignores:['public/libs/**/*.js']
+            },
+            all:['public/js/*.js', 'test/**/*.js', 'app/**/*.js']
+        },
+
+        less:{
+            development:{
+                options:{
+                    comprass: true,
+                    yuicompress: true,
+                    optimization:2
+                },
+                files:{
+                    'public/build/index.css':'public/less/index.less'
+                }
+            }
+        },
+
+        uglify:{
+             development:{
+                files:{
+                    'public/build/admin.min.js':'public/js/admin.js',
+                    'public/build/detail.min.js':['public/js/detail.js']
+                }
+            }
+        },
+
         nodemon: {
             dev: {  //开发环境
                 options: {
@@ -59,6 +89,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');       //用来实时监听app.js
     grunt.loadNpmTasks('grunt-concurrent');    //针对慢任务开发的插件
     grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-contrib-jshint'); //jshint测试
+    grunt.loadNpmTasks('grunt-contrib-uglify'); //js压缩
+    grunt.loadNpmTasks('grunt-contrib-less');   //less编译 
 
     grunt.option('force', true); //目的：避免开发时因为语法错误而中断grunt的整个服务
 

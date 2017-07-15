@@ -1,10 +1,13 @@
 //routes.js 路由文件
 
-var INdex = ('../app/controllers/index');
+var Index = ('../app/controllers/index');
 var User = ('../app/controllers/user');
 var Movie = ('../app/controllers/movie');
-var comment = ('../app/controllers/comment');
+var Comment = ('../app/controllers/comment');
 var Category = ('../app/controllers/category');
+
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 
 module.exports = function(app){
 
@@ -18,7 +21,7 @@ module.exports = function(app){
     });
    
    //Index page
-   app.get('/',INdex.index);
+   app.get('/',Index.index);
 
    //User
    app.post('/user/signup', User.signup);   
@@ -32,18 +35,18 @@ module.exports = function(app){
    app.get('/movie/:id', Movie.detail);       //detail page
    app.get('/admin/movie/new', User.signinRequired, User.adminRequired, Movie.new);            
    app.get('/admin/movie/update/:id',  User.signinRequired, User.adminRequired, Movie.update); 
-   app.post('/admin/movie',  User.signinRequired, User.adminRequired,Movie.savePoster, Movie.save);
+   app.post('/admin/movie',  multipartMiddleware, User.signinRequired, User.adminRequired,Movie.savePoster, Movie.save);
    app.get('/admin/movie/list',  User.signinRequired, User.adminRequired, Movie.list);        
    app.delete('/admin/list',  User.signinRequired, User.adminRequired, Movie.del);           
 
    //Comment
-   app.get('/user/comment',  User.signinRequired, comment.save);
+   app.get('/user/comment',  User.signinRequired, Comment.save);
 
    //Catetory
    app.get('/admin/category/new', User.signinRequired, User.adminRequired, Category.new);
    app.get('/admin/category', User.signinRequired, User.adminRequired, Category.save);
    app.get('/admin/category/list', User.signinRequired, User.adminRequired, Category.list);
-    app.get('/results', INdex.search);
+    app.get('/results', Index.search);
 
 };
 

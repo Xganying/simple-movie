@@ -1,6 +1,6 @@
 ## Movie
 
-node + express + mongodb 快速搭建的简单电影网站
+node + express + jade + mongodb + grunt 快速搭建的简单电影网站
 
 ### 1、 所用技术
 
@@ -10,7 +10,7 @@ node + express + mongodb 快速搭建的简单电影网站
 
 （3）开发环境 ：Grunt
 
-![技术](http://img.blog.csdn.net/20170710121354410?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2FueWluZ3hpZTEyMzQ1Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![技术](http://img.blog.csdn.net/20170710121354410)
 
 ### 2、 开发步骤
 
@@ -40,15 +40,15 @@ clone到本地 -> 安装依赖：npm install -> 确保mongodb数据库服务开�
 
 主页面：
 
-![主页](http://img.blog.csdn.net/20170711200127004?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2FueWluZ3hpZTEyMzQ1Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![主页](http://img.blog.csdn.net/20170711200127004)
 
 列表页：
 
-![列表页](http://img.blog.csdn.net/20170710114906212?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2FueWluZ3hpZTEyMzQ1Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![列表页](http://img.blog.csdn.net/20170710114906212)
 
 后台录入页：
 
-![后台录入页](http://img.blog.csdn.net/20170710114916927?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ2FueWluZ3hpZTEyMzQ1Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![后台录入页](http://img.blog.csdn.net/20170710114916927)
 
 
 **后期不断完善中。。。**
